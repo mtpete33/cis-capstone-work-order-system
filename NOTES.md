@@ -9,5 +9,12 @@ Feb 8th 2026
 
 Next steps: implement session handling and user auth - login/logout, protected dashboard view
 
-Feb 15th 2026
-- 
+Feb 17th 2026
+- Added sql files into project
+- Began authentication build
+- Created login/logout/auth API endpoints and simple login UI
+- Fixed a routing bug
+- Project is ready for testing full logins
+- Database and auth foundation is set up
+
+Next to do: Test user login, verify sessions working, work on dashboard behavior.

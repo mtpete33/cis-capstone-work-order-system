@@ -56,6 +56,11 @@ if (str_starts_with($path, '/api/')) {
   exit;
 }
 
+// Page routing
+if ($path === '/login' || $path === '/login.php') {
+  require __DIR__ . '/public/login.php';
+  exit;
+}
 
     // Default route -> dashboard
     require __DIR__ . '/public/index.php';
