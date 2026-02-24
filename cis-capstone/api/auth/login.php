@@ -30,7 +30,12 @@ if ($fields) {
 
 try {
   $pdo = getPDO();
-   $stmt = $pdo->prepare('SELECT "userID", "email", "pwHash" FROM "users" WHERE lower("email") = :email LIMIT 1');
+   $stmt = $pdo->prepare(
+    'SELECT "userID", "userName", "email", "pwHash", "roleID"
+     FROM users 
+     WHERE lower(email) = :email 
+     LIMIT 1'
+   );
   $stmt->execute(['email' => $email]);
   $user = $stmt->fetch();
 

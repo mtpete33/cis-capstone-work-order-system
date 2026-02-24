@@ -29,7 +29,7 @@
        $(document).ready(function() {
           $('#loginForm').on('submit', async function (e) {
              e.preventDefault();
-            $(#errorBox').hide().text('');
+            $('errorBox').hide().text('');
 
           const payload = {
              email: $('#email').val().trim(),
@@ -45,14 +45,16 @@
 
            const data = await res.json();
            if (!res.ok || !data.ok) {
-             $('#errorBox').show().text(data.error || 'Login failed');
+             $('errorBox').show().text(data.error || 'Login failed');
              return;
            }
            window.location.href = '/';
            } catch (err) {
-            $('#errorBox').show().text('Network error. Please try again.');
+            $('errorBox').show().text('Network error. Please try again.');
            }
        });
+          });
+       
 </script>
 </body>
 </html>

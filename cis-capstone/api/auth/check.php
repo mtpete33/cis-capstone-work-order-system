@@ -6,10 +6,16 @@ header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/../../config/session.php';
 
-$user = currentUser();
+startSession();
+
+if (!isset($_SESSION['user'])) {
+                  echo json_encode([
+                  'loggedIn' => false,
+]);
+                  exit;
+}
 
 echo json_encode([
-                  'ok' => true,
-                  'loggedIn' => $user !== null,
-                  'user' => $user
+                  'loggedIn' => true,
+                  'user' => $_SESSION['user']
 ]);

@@ -5,5 +5,5 @@ require_once __DIR__ . '/../../config/session.php';
 
 logoutUser();
 
-header('Location: public/login.php');
+header('Location: /login');
 exit;
