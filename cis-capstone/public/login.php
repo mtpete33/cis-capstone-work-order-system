@@ -4,13 +4,15 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link rel="icon" href="data:,">
        <title> Login </title>
-        <link rel="stylesheet" href="/public/assets/login.css">
    </head> 
 
   <body>
     <main style="max-width: 420px; margin: 40px auto; padding: 16px;">
        <h1>Login</h1>
+       <div id="errorBox" style="display:none; color: #b00020; margin-bottom: 12px;"></div>
        <form id="loginForm">
           <label>Email<br>
           <input type="email" id="email" required>
@@ -29,7 +31,7 @@
        $(document).ready(function() {
           $('#loginForm').on('submit', async function (e) {
              e.preventDefault();
-            $('errorBox').hide().text('');
+            $('#errorBox').hide().text('');
 
           const payload = {
              email: $('#email').val().trim(),
@@ -45,12 +47,12 @@
 
            const data = await res.json();
            if (!res.ok || !data.ok) {
-             $('errorBox').show().text(data.error || 'Login failed');
+             $('#errorBox').show().text(data.error || 'Login failed');
              return;
            }
            window.location.href = '/';
            } catch (err) {
-            $('errorBox').show().text('Network error. Please try again.');
+            $('#errorBox').show().text('Network error. Please try again.');
            }
        });
           });

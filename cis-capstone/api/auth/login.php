@@ -33,7 +33,7 @@ try {
    $stmt = $pdo->prepare(
     'SELECT "userID", "userName", "email", "pwHash", "roleID"
      FROM users 
-     WHERE lower(email) = :email 
+     WHERE lower("email") = :email 
      LIMIT 1'
    );
   $stmt->execute(['email' => $email]);
@@ -50,6 +50,7 @@ try {
     'userID' => (int)$user['userID'],
     'userName' => $user['userName'],
     'email' => $user['email'],
+    'roleID' => (int)$user['roleID'],
   ];
   echo json_encode(['ok' => true, 'user' => $_SESSION['user']]);
 } catch (Throwable $e) {

@@ -3,36 +3,16 @@
     ini_set('display_startup_errors', '1');
     error_reporting(E_ALL);
 
-    // Always show something if routing breaks:
-    function debug_out($data) {
-      header('Content-Type: text/plain; charset=utf-8');
-      echo $data;
-      exit;
-    }
-
     $uri  = $_SERVER['REQUEST_URI'] ?? '';
-    $path = parse_url($uri, PHP_URL_PATH);
+    $path = parse_url($uri, PHP_URL_PATH) ?? '/';
+if ($path === '') $path = '/';
 
-    // If parse_url fails, fail loudly
-    if ($path === null) {
-      debug_out("parse_url failed\nURI: " . $uri);
+    $publicRoot = __DIR__ . '/public';
+
+    $fullPublicPath = realpath($publicRoot . $path);
+    if ($path !== '/' && $fullPublicPath && str_starts_with($fullPublicPath, realpath($publicRoot)) && is_file($fullPublicPath)) {
+      return false;
     }
-
-    // Normalize empty path to "/"
-    if ($path === '') {
-      $path = '/';
-    }
-
-// Serve static assets (css/js/images) from /public only
-$staticFile = __DIR__ . '/public' . $path;
-if (
-    $path !== '/' &&
-    file_exists($staticFile) &&
-    !is_dir($staticFile)
-) {
-    return false;
-}
-
 
 
 // API routing
@@ -40,7 +20,6 @@ if (str_starts_with($path, '/api/')) {
   $apiFile = __DIR__ . $path;
 
   if (file_exists($apiFile) && !is_dir($apiFile)) {
-
     require $apiFile;
     exit;
   }
