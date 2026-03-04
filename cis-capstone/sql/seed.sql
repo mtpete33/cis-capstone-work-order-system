@@ -101,19 +101,19 @@ INSERT INTO categories ("categoryName", "departmentID", "isActive")
 SELECT 'Leak Repair', d."departmentID", TRUE FROM departments d WHERE d."departmentName" = 'Plumbing'
 ON CONFLICT DO NOTHING;
 
--- Demo Users (passwords: admin123, tech123, requester123)
+-- Demo Users (password for all accounts: password123)
 -- These hashes are generated with password_hash() using PASSWORD_DEFAULT
 INSERT INTO users ("userName", "email", "pwHash", "roleID")
-SELECT 'Admin User', 'admin@school.edu', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', r."roleID"
+SELECT 'Admin User', 'admin@school.edu', '$2y$10$lGOyoYsgR0DvCRZY3sTx8eDC9dainnSmaznj8MXWxZf.eS3wcwYfC', r."roleID"
 FROM roles r WHERE r."roleName" = 'Admin'
 ON CONFLICT ("email") DO NOTHING;
 
 INSERT INTO users ("userName", "email", "pwHash", "roleID")
-SELECT 'Tech User', 'tech@school.edu', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', r."roleID"
+SELECT 'Tech User', 'tech@school.edu', '$2y$10$lGOyoYsgR0DvCRZY3sTx8eDC9dainnSmaznj8MXWxZf.eS3wcwYfC', r."roleID"
 FROM roles r WHERE r."roleName" = 'Technician'
 ON CONFLICT ("email") DO NOTHING;
 
 INSERT INTO users ("userName", "email", "pwHash", "roleID")
-SELECT 'Requester User', 'requester@school.edu', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', r."roleID"
+SELECT 'Requester User', 'requester@school.edu', '$2y$10$lGOyoYsgR0DvCRZY3sTx8eDC9dainnSmaznj8MXWxZf.eS3wcwYfC', r."roleID"
 FROM roles r WHERE r."roleName" = 'Requester'
 ON CONFLICT ("email") DO NOTHING;
