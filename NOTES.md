@@ -40,5 +40,12 @@ Challenges: difficulties pushing to GitHub through Replit. Trying to use remote 
 
 Next steps: work on role-based behavior, improve UI, search/filtering existing work orders, work on editing/updating status changes to work orders
 
-3/4/2026
-- 
+3/8/2026
+-UI updates: three-card button system added, single-page app design, added some colors and other styling
+-Backend: created search.php endpoint that returns filtered work orders for the search panel, added role-based logic so user only sees work orders for their role
+-Added endpoints: statuses.php to return work order statuses from DB, and priorities.php to return priority options from DB for UI dropdown
+
+Challenges: still having trouble with pushing to GitHub-- Ended up creating a second repo to try to avoid the initial problems. Now using the Visual Studio Code terminal to push instead of using Replit Shell. So far it seems better.
+
+Next steps: continue improving UI for simple and intuitive interaction between user and the system, add logic for editing and updating status changes, allow only Admin users to change statuses, etc.
+
