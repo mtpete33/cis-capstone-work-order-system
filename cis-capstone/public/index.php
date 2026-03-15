@@ -23,16 +23,17 @@ $user = currentUser();
   <header class="top-header">
     <div class="page-wrap">
   <h1 class="site-title">Work Order System</h1>
-      <p class="user-info">Logged in as <strong><?= htmlspecialchars($user['email']) ?></strong></p>
+      
     </div>
   </header>
   
 <div class="subbar">
   <div class="page-wrap subbar-inner">
-  <div>
+    <p class="user-info">Logged in as <strong><?= htmlspecialchars($user['email']) ?></strong></p>
+  <!-- <div>
     <span id="welcomeText">Welcome, </span>
     <span id="roleBadge" class="role-badge">User</span>
-  </div>
+  </div> -->
   <a class="logout-btn" href="api/auth/logout.php">Logout</a>
   </div>
   </div>

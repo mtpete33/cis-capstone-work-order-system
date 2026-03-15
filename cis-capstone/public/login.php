@@ -4,27 +4,76 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+      <link rel="stylesheet" href="styles.css">
       <link rel="icon" href="data:,">
        <title> Login </title>
    </head> 
 
   <body>
-    <main style="max-width: 420px; margin: 40px auto; padding: 16px;">
-       <h1>Login</h1>
-       <div id="errorBox" style="display:none; color: #b00020; margin-bottom: 12px;"></div>
-       <form id="loginForm">
-          <label>Email<br>
+     <header class="login-header">
+        <div class="login-header-inner">
+           <h1>Maintenance Work Order System</h1>
+        </div>
+        </header>
+     <div class="login-subbar"></div>
+     
+    <main class="login-page">
+       <div class="login-grid">
+          <section class="card">
+       <h2>Login</h2>
+       <p>Please enter your credentials to login. Use one of the following test accounts to test different user roles/permissions.</p>
+       <table class="test-users-table">
+          <thead>
+          <tr>
+             <td>Email</td>
+             <td>Password</td>
+             <td>Role / Access</td>
+             </tr>
+             </thead>
+          <tbody>
+          <tr>
+             <td>admin@school.edu</td>
+             <td>password123</td>
+             <td><span class="role-chip">Admin</span><br>Can view all work orders.</td>
+             </tr>
+          <tr>
+             <td>tech@school.edu</td>
+             <td>password123</td>
+             <td><span class="role-chip">Technician</span><br>Can view work orders assigned to them, or currently unassigned.</td>
+             </tr>
+          <tr>
+             <td>requester@school.edu</td>
+             <td>password123</td>
+             <td><span class="role-chip">Requester</span><br>Can view work orders they submitted.</td>
+             </tr>
+          </tbody>
+          </table>
+              </section>
+
+          <section class="card">
+            <h2>Sign In</h2>
+
+             
+       <div id="errorBox"></div>
+             
+       <form id="loginForm" class="login-form">
+          <div class="form-row">
+          <label for="email">Email</label>
           <input type="email" id="email" required>
-          </label>
-           <br><br>
-            <label>Password<br>
+              </div>
+          <div class="form-row">
+            <label for="password">Password<br></label>
             <input type="password" id="password" required>
-            </label>
-             <br><br>
-             <button type="submit">Login</button>
+       </div>
+          
+          <button type="submit" class="login-btn">Login</button>
        </form>
+
+             <p class="helper-text">For demo purposes, use one of the test accounts listed on the left.</p>
+          </section>
+          </div>
     </main>
+     
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
