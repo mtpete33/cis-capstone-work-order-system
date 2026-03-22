@@ -30,13 +30,17 @@ try {
       wo."workOrderID",
       wo."title",
       wo."createdAt",
+      wo."assignedToUserID",
+      wo."currentStatusID",
       l."locationName",
       s."statusName",
-      p."priorityName"
+      p."priorityName",
+      COALESCE(tech."userName", tech."email", \'Unassigned\') AS "assignedToName"
     FROM work_orders wo
     JOIN locations l ON l."locationID" = wo."locationID"
     JOIN statuses s ON s."statusID" = wo."currentStatusID"
     JOIN priorities p ON p."priorityID" = wo."priorityID"
+    LEFT JOIN users tech ON tech."userID" = wo."assignedToUserID"
   ';
 
   $whereParts = [];

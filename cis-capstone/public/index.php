@@ -81,10 +81,12 @@ $user = currentUser();
               <th>Status</th>
               <th>Priority</th>
               <th>Location</th>
+              <th>Assigned To</th>
               <th>Created</th>
+              <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="woTableBody"></tbody>
+          <tbody id="searchTableBody"></tbody>
         </table>
       </div>
 

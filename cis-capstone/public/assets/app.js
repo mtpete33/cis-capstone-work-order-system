@@ -3,12 +3,58 @@ $(document).ready(function () {
   let createFormDataLoaded = false;
   let searchFormDataLoaded = false;
 
+  let currentUserRoleID = 0;
+  let cachedStatuses = [];
+  let cachedTechnicians = [];
+
   // Click handlers
   $(document).on('click', '.dash-card', function () {
     const panelId = $(this).data('panel');
     showPanel(panelId);
   })
 
+  $(document).on('click', '.save-wo-btn', function () {
+                const $container = $(this).closest('.admin-actions');
+                const workOrderID = Number($container.data('work-order-id'));                
+                const assignedToUserIDRaw = $container.find('.assign-tech-select').val();
+                const currentStatusID = Number($container.find('.update-status-select').val());
+
+                const payload = {
+                  workOrderID: workOrderID,
+                  statusID: currentStatusID,
+                  assignedToUserID: assignedToUserIDRaw === '' ? null : Number(assignedToUserIDRaw)
+                };
+
+               $('searchStatusMsg').text('Saving update...');
+
+              fetch('/api/work_orders/update.php', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+              })
+              .then(res => res.json())
+              .then(data => {
+                if (!data.ok) {
+                  $('#searchStatusMsg').text(data.error || 'Failed to update work order');
+                  return;
+                }
+
+                $('#searchStatusMsg').text('Work order updated successfully.');
+
+                //refresh work order recent list
+                loadWorkOrders();
+
+                //rerun current search so results are current
+                $('#searchWorkOrdersForm').trigger('submit');
+              })
+              .catch(function (err) {
+                $('#searchStatusMsg').text('Failed to update work order (network/server error)');
+                console.error(err);
+              });
+          });
 
   // Helper functions
   function loadStatuses() {
@@ -16,6 +62,7 @@ $(document).ready(function () {
     .then(res => res.json())
     .then(data =>{
       if (!data.ok) throw new Error(data.error || 'Failed to load statuses');
+      cachedStatuses = data.items || [];
       populateSelect($('#searchStatus'), data.items, 'statusID', 'statusName', '-- Any status --');
     });
   }
@@ -31,7 +78,14 @@ $(document).ready(function () {
 
   function loadSearchFormData() {
     $('#searchStatusMsg').text('Loading search filters...');
-    Promise.all([loadStatuses(), loadPriorities()])
+
+    const requests = [loadStatuses(), loadPriorities()];
+
+    if(currentUserRoleID === 1) {
+      requests.push(loadTechnicians());
+    }
+    
+    Promise.all(requests)
     .then(function () {
       searchFormDataLoaded = true;
       $('#searchStatusMsg').text('');
@@ -143,6 +197,29 @@ $(document).ready(function () {
     $select.html(opts.join(''));
   }
 
+  function buildStatusOptions(selectedStatusID) {
+    const options = cachedStatuses.map(function (status) {
+    const selected = Number(status.statusID) === Number(selectedStatusID) ? 'selected' : '';
+       return `<option value="${escapeHtml(status.statusID)}" ${selected}>${escapeHtml(status.statusName)}</option>`;
+    });
+    return options.join('');
+  }
+
+function buildTechnicianOptions(selectedUserID) {
+  const options = [`<option value="">-- Unassigned --</option>`];
+
+  cachedTechnicians.forEach(function (tech) {
+    const selected = Number(tech.userID) === Number(selectedUserID) ? 'selected' : '';
+    const label = tech.userName && tech.userName.trim() !== '' ? tech.userName : tech.email;
+
+    options.push(`<option value="${escapeHtml(tech.userID)}" ${selected}>${escapeHtml(label)}</option>`);
+  });
+
+  return options.join('');
+}
+
+  
+
   function loadDepartments() {
     return fetch('/api/meta/departments.php', { credentials: 'include' })
       .then(res => res.json())
@@ -216,6 +293,16 @@ $(document).ready(function () {
       });
   });
 
+  // Load technicians
+  function loadTechnicians() {
+    return fetch('/api/meta/technicians.php', { credentials: 'include' })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.ok) throw new Error(data.error || 'Failed to load technicians');
+        cachedTechnicians = data.items || [];
+      })
+  }
+
   // Search form submission
   $(document).on('submit', '#searchWorkOrdersForm', function (e) {
     e.preventDefault();
@@ -251,6 +338,23 @@ $(document).ready(function () {
       $('#searchStatusMsg').text('');
 
       const html = rows.map(function (wo) {
+        let actionsHtml = '<span class="muted-text">View only</span>';
+
+        if (currentUserRoleID === 1) {
+          actionsHtml = `
+          <div class="admin-actions" data-work-order-id="${escapeHtml(wo.workOrderID)}">
+          <select class="assign-tech-select">
+          ${buildTechnicianOptions(wo.assignedToUserID)}
+          </select>
+          <select class="update-status-select">
+          ${buildStatusOptions(wo.statusID)}
+          </select>
+
+          <button type="button" class="save-wo-btn primary-btn">Save</button>
+          </div>
+          `;
+        }
+        
         return `
         <tr>
           <td>${escapeHtml(wo.workOrderID)}</td>
@@ -259,6 +363,7 @@ $(document).ready(function () {
           <td>${escapeHtml(wo.priorityName)}</td>
           <td>${escapeHtml(wo.locationName)}</td>
           <td>${escapeHtml(formatDate(wo.createdAt))}</td>
+          <td>${actionsHtml}</td>
           </tr>
         `;
       }).join('');
@@ -284,6 +389,8 @@ $(document).ready(function () {
        window.location.href = '/login';
        return;
      }
+
+     currentUserRoleID = Number(res.user.roleID || 0);
 
      // $('#whoami').text(
      //   'Logged in as ' + res.user.email + ' (roleID: ' + res.user.roleID + ')'
