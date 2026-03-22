@@ -81,12 +81,10 @@ $user = currentUser();
               <th>Status</th>
               <th>Priority</th>
               <th>Location</th>
-              <th>Assigned To</th>
               <th>Created</th>
-              <th>Actions</th>
             </tr>
           </thead>
-          <tbody id="searchTableBody"></tbody>
+          <tbody id="woTableBody"></tbody>
         </table>
       </div>
 
@@ -173,7 +171,9 @@ $user = currentUser();
               <th>Status</th>
               <th>Priority</th>
               <th>Location</th>
+              <th>Assigned To</th>
               <th>Created</th>
+              <th>Actions</th>
             </tr>
             </thead>
           <tbody id="searchTableBody"></tbody>

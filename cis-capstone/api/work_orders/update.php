@@ -9,6 +9,7 @@ startSession();
 if (!isset($_SESSION['user'])) {
   http_response_code(401);
   echo json_encode(['ok' => false, 'error' => 'Unauthorized']);
+  exit;
 }
 
 $user =  $_SESSION['user'];
@@ -37,7 +38,7 @@ try {
     $assignedToUserID = (int)$input['assignedToUserID'];
   }
 
-  if $workOrderID <= 0 {
+  if ($workOrderID <= 0) {
     http_response_code(400);
     echo json_encode(['ok' => false, 'error' => 'Invalid work order ID']);
     exit;
