@@ -78,29 +78,40 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
        $(document).ready(function() {
+          // attach a submit handler to the login form
           $('#loginForm').on('submit', async function (e) {
+             // stop the form from normal submission behavior
              e.preventDefault();
+             // clear any previous error messages
             $('#errorBox').hide().text('');
 
+             // Build the data object we want to send to the login API endpoint
+             // email is trimmed to remove any accidental whitespace
+             // password is not trimmed as spaces are allowed in passwords
           const payload = {
              email: $('#email').val().trim(),
               password: $('#password').val()
           };
 
          try {
+            // Send the login request to the API endpoint
             const res = await fetch('/api/auth/login.php', {
                method: 'POST',
                headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(payload)
             });
-
+           // Parse the JSON response
            const data = await res.json();
+
+            // If the response is not OK or the data indicates failure, show the error
            if (!res.ok || !data.ok) {
              $('#errorBox').show().text(data.error || 'Login failed');
              return;
            }
+            // If login is successful, redirect user to the dashboard
            window.location.href = '/';
            } catch (err) {
+            // show a network error message if the request fails
             $('#errorBox').show().text('Network error. Please try again.');
            }
        });

@@ -56,4 +56,13 @@ Next steps: continue improving UI for simple and intuitive interaction between u
 Next steps: Continue improving UI. Add functionality for updating work order status and allowing admin user to assign technicians to work orders.
 
 
+3/22/2026
+- Fixed some bugs in app.js, index.php, and update.php because I was getting console errors when trying to load Recent work orders, and searching / assigning work orders. Now the Admin user can assign work orders to the Technician user.
 
+3/28/2026
+- Most of the basic intended functionality is built. Some CSS updates, and maybe some nice-to-have features may be added
+- Currently no console errors after testing, and no PHP errors.
+- Added some CSS styling to the admin actions elements in the search results table
+- Started add explanatory comments to index.php, login.php, and app.js
+
+To do: Continue adding comments to explain how the code works.

@@ -1,6 +1,9 @@
 <?php 
+// Bring in our session helper functions (startSession, requireLogin, currentUser)
 require_once __DIR__ . '/../config/session.php';
+// Make sure the user is logged in before accessing the dashboard
 requireLogin();
+// Get the current user data
 $user = currentUser();
 ?>
 
@@ -39,7 +42,7 @@ $user = currentUser();
   </div>
 
   <main class="page-wrap">
-    <section class="summary-row">
+    <!-- <section class="summary-row">
       <div class="summary-box">
         <span class="summary-label">Total Work Orders</span>
         <span class="summary-value" id="totalWO">-</span>
@@ -49,8 +52,9 @@ $user = currentUser();
         <span class="summary-label">Open Work Orders</span>
        <span class="summary-value" id="openWO">-</span>
         </div>
-    </section>
+    </section> -->
 
+    <!-- Navigation button cards on the dashboard  -->
     <section class="dashboard-cards">
       <button class="dash-card active" data-panel="recentPanel" id="recentTab">
         <div class="dash-card-title">Recent Work Orders</div>
@@ -68,6 +72,8 @@ $user = currentUser();
           </button>
     </section>
 
+    <!-- The panels that are shown/hidden based on the navigation buttons above 
+    with JavaScript toggling between panels by adding/removing CSS Classes -->
     <section class="panel-shell">
       <div id="recentPanel" class="dashboard-panel active-panel">
         <h2>Recent Work Orders</h2>

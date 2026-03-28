@@ -1,18 +1,32 @@
   $(document).ready(function () {
 
+    // These flags help to avoid re-loading the same dropdown data unnecessarily
+    // every time a panel is opened. Once data is loaded, the flag is set to true
     let createFormDataLoaded = false;
     let searchFormDataLoaded = false;
 
+    // Store the current users role so the frontend knows what actions to show
+    // (e.g. admins can assign work orders to technicians)
     let currentUserRoleID = 0;
+    
+    // Cache metadata data so we can reuse it without making extra API calls
+    // cachedStatuses is used to build the status dropdown in the admin action.
+    // cachedTechnicians is used to build the technician assignment dropdown.
     let cachedStatuses = [];
     let cachedTechnicians = [];
 
+    // ----------------------
     // Click handlers
+    // ----------------------
+    // When a dashboard card is clicked, read its data-panel value
+    // and show the matching panel section.
     $(document).on('click', '.dash-card', function () {
       const panelId = $(this).data('panel');
       showPanel(panelId);
     })
 
+    // When admin user clicks the Save button in the search results gather the
+    // selected technician and selected status for that row and send tan update request to the backend.
     $(document).on('click', '.save-wo-btn', function () {
                   const $container = $(this).closest('.admin-actions');
                   const workOrderID = Number($container.data('work-order-id'));                

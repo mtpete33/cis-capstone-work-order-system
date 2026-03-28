@@ -234,3 +234,28 @@ h2 {
   font-weight: 500;
 }
 
+.admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 220px;
+}
+
+.admin-actions select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d7dbe0;
+  border-radius: 6px;
+  background: #fff;
+  
+  font: inherit;
+}
+
+.admin-actions .primary-btn {
+  width:100%;
+}
+
+.muted-text {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
