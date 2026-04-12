@@ -182,13 +182,13 @@
           const html = rows.map(function (wo) {
             return `
               <tr>
-                <td>${escapeHtml(wo.workOrderID)}</td>
-                <td>${escapeHtml(wo.title)}</td>
-                <td>${escapeHtml(wo.statusName)}</td>
-                <td>${escapeHtml(wo.priorityName)}</td>
-                <td>${escapeHtml(wo.locationName)}</td>
-                <td>${escapeHtml(formatDate(wo.createdAt))}</td>
-              </tr>
+  <td data-label="ID">${escapeHtml(wo.workOrderID)}</td>
+  <td data-label="Title">${escapeHtml(wo.title)}</td>
+  <td data-label="Status">${escapeHtml(wo.statusName)}</td>
+  <td data-label="Priority">${escapeHtml(wo.priorityName)}</td>
+  <td data-label="Location">${escapeHtml(wo.locationName)}</td>
+  <td data-label="Created">${escapeHtml(formatDate(wo.createdAt))}</td>
+</tr>
             `;
           }).join('');
 
@@ -371,15 +371,15 @@
 
           return `
           <tr>
-            <td>${escapeHtml(wo.workOrderID)}</td>
-            <td>${escapeHtml(wo.title)}</td>
-            <td>${escapeHtml(wo.statusName)}</td>
-            <td>${escapeHtml(wo.priorityName)}</td>
-            <td>${escapeHtml(wo.locationName)}</td>
-            <td>${escapeHtml(wo.assignedToName || 'Unassigned')}</td>
-            <td>${escapeHtml(formatDate(wo.createdAt))}</td>
-            <td>${actionsHtml}</td>
-            </tr>
+  <td data-label="ID">${escapeHtml(wo.workOrderID)}</td>
+  <td data-label="Title">${escapeHtml(wo.title)}</td>
+  <td data-label="Status">${escapeHtml(wo.statusName)}</td>
+  <td data-label="Priority">${escapeHtml(wo.priorityName)}</td>
+  <td data-label="Location">${escapeHtml(wo.locationName)}</td>
+  <td data-label="Assigned To">${escapeHtml(wo.assignedToName || 'Unassigned')}</td>
+  <td data-label="Created">${escapeHtml(formatDate(wo.createdAt))}</td>
+  <td data-label="Actions">${actionsHtml}</td>
+</tr>
           `;
         }).join('');
 

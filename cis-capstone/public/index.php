@@ -79,6 +79,7 @@ $user = currentUser();
         <h2>Recent Work Orders</h2>
         <p id="woStatus">Loading work orders...</p>
 
+        <div class="table-wrap">
         <table class="wo-table">
           <thead>
             <tr>
@@ -92,6 +93,7 @@ $user = currentUser();
           </thead>
           <tbody id="woTableBody"></tbody>
         </table>
+          </div>
       </div>
 
       <div id="createPanel" class="dashboard-panel hidden-panel">
@@ -168,7 +170,7 @@ $user = currentUser();
         </form>
 
         <p id="searchStatusMsg"></p>
-
+        <div class="table-wrap">
         <table class="wo-table">
           <thead>
             <tr>
@@ -184,6 +186,7 @@ $user = currentUser();
             </thead>
           <tbody id="searchTableBody"></tbody>
         </table>
+          </div>
       </div>
           
     </section>

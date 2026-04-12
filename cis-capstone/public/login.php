@@ -20,21 +20,22 @@
     <main class="login-page">
        <div class="login-grid">
           <section class="card">
-       <h2>Login</h2>
+       <h2>Credentials</h2>
        <p>Please enter your credentials to login. Use one of the following test accounts to test different user roles/permissions.</p>
+             <div class="table-scroll">
        <table class="test-users-table">
           <thead>
           <tr>
-             <td>Email</td>
-             <td>Password</td>
-             <td>Role / Access</td>
+             <th>Email</th>
+             <th>Password</th>
+             <th>Role / Access</th>
              </tr>
              </thead>
           <tbody>
           <tr>
              <td>admin@school.edu</td>
              <td>password123</td>
-             <td><span class="role-chip">Admin</span><br>Can view all work orders.</td>
+             <td><span class="role-chip">Admin</span><br>Can view all work orders, update work order status, and assign/re-assign work orders to technicians.</td>
              </tr>
           <tr>
              <td>tech@school.edu</td>
@@ -48,6 +49,7 @@
              </tr>
           </tbody>
           </table>
+          </div>
               </section>
 
           <section class="card">
@@ -69,7 +71,7 @@
           <button type="submit" class="login-btn">Login</button>
        </form>
 
-             <p class="helper-text">For demo purposes, use one of the test accounts listed on the left.</p>
+             <p class="helper-text">For demo purposes, use one of the test account logins listed.</p>
           </section>
           </div>
     </main>
