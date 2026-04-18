@@ -41,6 +41,12 @@ if ($path === '/login' || $path === '/login.php') {
   exit;
 }
 
+// Work orders list page
+if ($path === '/workorders' || $path === '/workorders/') {
+  require __DIR__ . '/public/workorders/index.php';
+  exit;
+}
+
 // New work order page
 if ($path === '/workorders/new') {
   require __DIR__ . '/public/workorders_new.php';
