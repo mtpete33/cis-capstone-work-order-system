@@ -1,0 +1,43 @@
+worker_processes auto;
+pid /tmp/nginx.pid;
+error_log /tmp/nginx_error.log warn;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include NGINX_MIME_TYPES;
+    default_type application/octet-stream;
+
+    access_log /tmp/nginx_access.log;
+    sendfile on;
+    keepalive_timeout 65;
+
+    client_body_temp_path /tmp/nginx_client_body;
+    proxy_temp_path /tmp/nginx_proxy;
+    fastcgi_temp_path /tmp/nginx_fastcgi;
+    uwsgi_temp_path /tmp/nginx_uwsgi;
+    scgi_temp_path /tmp/nginx_scgi;
+
+    server {
+        listen 5000;
+        server_name _;
+
+        root SCRIPT_DIR/cis-capstone/public;
+        index index.php;
+
+        location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+            try_files $uri =404;
+        }
+
+        location / {
+            fastcgi_pass unix:/tmp/php-fpm.sock;
+            fastcgi_param SCRIPT_FILENAME SCRIPT_DIR/cis-capstone/router.php;
+            include NGINX_FASTCGI_PARAMS;
+            fastcgi_param REQUEST_URI $request_uri;
+            fastcgi_param DOCUMENT_ROOT SCRIPT_DIR/cis-capstone/public;
+            fastcgi_read_timeout 60;
+        }
+    }
+}
