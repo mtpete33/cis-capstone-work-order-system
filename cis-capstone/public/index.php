@@ -15,7 +15,7 @@ $user = currentUser();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="icon" href="data:,">
-   <title>Work Order System</title>
+   <title>WorkFlow</title>
   
    
    <link rel="stylesheet" href="/assets/styles.css">
@@ -25,7 +25,7 @@ $user = currentUser();
 <body>
   <header class="top-header">
     <div class="page-wrap">
-  <h1 class="site-title">Work Order System</h1>
+  <h1 class="site-title">WorkFlow</h1>
       
     </div>
   </header>
