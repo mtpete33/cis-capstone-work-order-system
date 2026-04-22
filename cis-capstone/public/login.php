@@ -12,7 +12,8 @@
   <body>
      <header class="login-header">
         <div class="login-header-inner">
-           <h1>Maintenance Work Order System</h1>
+           <!-- <h1>WorkFlow</h1> -->
+           <img src="/assets/images/workflowlogo.png" alt="WorkFlow Logo" class="logo">
         </div>
         </header>
      <div class="login-subbar"></div>

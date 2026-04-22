@@ -80,6 +80,12 @@ body {
   line-height: 1.5;
 }
 
+.logo {
+  width: 100%;
+  max-width: 200px;
+  margin-bottom: 20px;
+}
+
 .test-users-table {
   width:100%;
   border-collapse: collapse;

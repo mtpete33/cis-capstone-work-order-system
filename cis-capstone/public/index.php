@@ -25,8 +25,8 @@ $user = currentUser();
 <body>
   <header class="top-header">
     <div class="page-wrap">
-  <h1 class="site-title">WorkFlow</h1>
-      
+  <!-- <h1 class="site-title">WorkFlow</h1> -->
+      <img src="/assets/images/workflowlogo.png" alt="WorkFlow Logo" class="logo">
     </div>
   </header>
   
